@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>NFA for (1|0)*00 </title>
+    <style>
+        table { 
+            border-collapse: collapse; 
+            margin: 0 50px; 
+        }
+        th { 
+            color: blue; 
+            padding: 5px 12px; 
+        }
+        td { 
+            border: 1px solid blue; 
+            padding: 5px 12px; 
+            text-align: center; 
+        }
+        #sample{
+            background-color: rgb(175, 173, 173);
+            border-radius: 1%;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2 id=title></h2>
+
+<p>Non-deterministic finite automaton</p>
+Input Number = 
+<input id=final type=text value=50 onChange="test()" style="width:30px">
+
+<pre id=out></pre>
+
+<hr />
+<b>Logic</b>
+
+
+<br>
+<div>
+    <table style="float:left;"> 
+        <tr><th></th><th>0</th><th>1</th></tr>
+        <tr><th> > a</th><td>ab</td><td>a</td></tr>
+        <tr><th>&emsp;b</th><td>c</td><td>ϕ</td></tr>
+        <tr><th>* c</th><td>ϕ</td><td>ϕ</td></tr>
+        </table> 
+        
+        <table>
+        <tr><th></th><th>0</th><th>1</th></tr>
+        <tr><th> >  a</th><td>ab</td><td>a</td></tr>
+        <tr><th>&emsp; ab</th><td>abc</td><td>a</td></tr>
+        <tr><th>* abc</th><td>abc</td><td>a</td></tr>
+        </table>
+</div>
+<br>
+
+<pre id=sample></pre>
+
+<hr />
+
+<script>
+"use strict";
+function union(a, b) { //set operation using strings
+    let s = a
+    for (let x of b) if (!a.includes(x)) s += x
+    return s
+}
+function intersect(a, b) {
+    let s = ''
+    for (let x of b) if (a.includes(x)) s += x
+    return s
+}
+function deltaNFA(q, c) { // (1|0)*00
+    if (q=='a' && c=='0') return 'ab'
+    if (q=='a' && c=='1') return 'a'
+    if (q=='b' && c=='0') return 'c' 
+    return '';  //default -- no transition
+}
+function deltaDFA(q, c) { // (1|0)*00
+    if (q=='a' && c=='0') return 'b'
+    if ((q=='a' || q=='b' || q=='c') && c=='1') return 'a'
+    if ((q=='b' || q=='c') && c=='0') return 'c'
+    return '';  //default -- no transition
+}
+function acceptNFA(w, F='c', Q='a') {
+    //w: input String
+    //F: final state(s)
+    //Q: current state(s)
+    let i = 0, txt = Q
+    while (i < w.length) {
+        let c = w[i], T=''
+        for (let q of Q) 
+            T = union(T, deltaNFA(q, c))
+        Q = T
+        if (Q == '') break
+        i++; txt += ", "+c+" -> "+Q+'\n'+Q
+    }
+    return intersect(Q, F).length > 0
+}
+function acceptDFA(w, F='c', Q='a') {
+    //w: input String
+    //F: final state(s)
+    //Q: current state(s)
+    let i = 0, txt = Q
+    while (i < w.length) {
+        let c = w[i], T=''
+        for (let q of Q) 
+            T = union(T, deltaDFA(q, c))
+        Q = T
+        if (Q == '') break
+        i++; txt += ", "+c+" -> "+Q+'\n'+Q
+    }
+    return intersect(Q, F).length > 0
+}
+
+function acceptRegex(w) {
+    let e = /00$/
+    return e.test(w)
+}
+function test() {
+    let res = []
+    for (let n=1; n<final.value; n++) {
+        let w = n.toString(2)  // to binary
+        if (acceptRegex(w) && acceptDFA(w) &&  acceptNFA(w)) res.push(n); 
+    }
+    console.log("Result: [" + res + "]")
+    out.innerHTML = "Result: " + res
+}
+    title.innerText = document.title;
+    sample.innerText = deltaNFA + '\n' + acceptNFA + '\n' + deltaDFA + '\n' + acceptDFA + '\n' + acceptRegex+ '\n' +test;
+    test();
+</script>
+</body>
+</html>
