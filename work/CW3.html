@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://maeyler.github.io/Auto/work/RegExp.html -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width">
+    <title>Regular Expressions </title>
+    <style>
+        /* pre { border: solid 1px } */
+        #pat {
+            width: 90px;
+        }
+
+        #inp {
+            width: 250px;
+        }
+
+        .found {
+            color: #F60;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 id="title">Regular Expressions</h2>
+
+    <p>
+        Pattern <input type="text" id="pat" onkeyup="checkRE()"> 
+        <select id="menu" onchange="setValues()">
+            <option>URL</option>
+            <option>Date</option>
+            <option>Letter</option>
+            <option>Number</option>
+            <option>Suffix</option>
+            <option>x+letter
+            </option>
+        </select>
+    </p>
+    <p>
+        Input <input type="text" id="inp" onkeyup="checkRE()">
+    </p>
+    <p id="out">B<span class="found">i</span><span class="found">r</span> <span class="found">i</span><span
+            class="found">k</span><span class="found">i</span> üç <span class="found">d</span>ö<span
+            class="found">r</span><span class="found">t</span> <span class="found">b</span><span class="found">e</span>ş
+        <span class="found">a</span><span class="found">l</span><span class="found">t</span>ı </p>
+
+    <hr>
+    <b>Sample code</b>
+    <pre
+        id="sample">function setValues() {<br>    pat.value = ptrn[menu.selectedIndex];<br>    inp.value = word[menu.selectedIndex];<br>    checkRE();<br>}<br>function checkRE() {<br>    if (pat.value &amp;&amp; inp.value) {<br>        const exp = new RegExp(pat.value,'g');<br>        const str = "&lt;span class=found&gt;$&amp;&lt;/span&gt;";<br>        out.innerHTML = inp.value.replace(exp, str);<br>    }<br>}</pre>
+    <hr>
+    <p>Ref: <a href="https://emrahtema.github.io/Automata/regexp/EmrahTema_Regexp.html" target="ExternalDocument">Term
+            project by Emrah Tema</a>
+    </p>
+    <p>Ref: <a href="https://maeyler.github.io/Auto/work/RegExp.html" target="ExternalDocument"></a>
+    </p>
+
+
+    <script>
+        
+        const ptrn = [
+            "^(https?:\/\/)",
+            "[0-9]\/[0-9]\/[0-9]{4}",
+            "[a-z]", 
+            "[0-9]{4}", 
+            "d[iuü][km]",
+            "x[a-z]"
+            ];
+        const word =
+            ["https://maeyler.github.io/Auto/work/RegExp.html", "Bugun 3/5/2019","Bir iki üç dört beş altı ", "Bugün 23/6/2018 saat 14",
+                "Geldim gördüm buldum...", "Excellent expression tax "];
+        function setValues() {
+            pat.value = ptrn[menu.selectedIndex];
+            inp.value = word[menu.selectedIndex];
+            checkRE();
+        }
+        function checkRE() {
+            if (pat.value && inp.value) {
+                const exp = new RegExp(pat.value, 'g');
+                const str = "<span class=found>$&</span>";
+                console.log(exp)
+                console.log(str)
+                console.log(inp.value.replace(exp, str))
+                out.innerHTML = inp.value.replace(exp, str);
+            }
+        }
+        sample.innerText = setValues.toString() + "\n" + checkRE.toString();
+        title.innerText = document.title; setValues();
+    </script>
+
+
+
+</body>
+
+</html>

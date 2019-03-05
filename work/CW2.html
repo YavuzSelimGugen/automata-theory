@@ -41,7 +41,9 @@ Input Number =
 
 <br>
 <div>
-    <table style="float:left;"> 
+    
+    <table> 
+            <h3>NFA</h3>
         <tr><th></th><th>0</th><th>1</th></tr>
         <tr><th> > a</th><td>ab</td><td>a</td></tr>
         <tr><th>&emsp;b</th><td>c</td><td>ϕ</td></tr>
@@ -49,6 +51,7 @@ Input Number =
         </table> 
         
         <table>
+                <h3>DFA</h3>
         <tr><th></th><th>0</th><th>1</th></tr>
         <tr><th> >  a</th><td>ab</td><td>a</td></tr>
         <tr><th>&emsp; ab</th><td>abc</td><td>a</td></tr>
@@ -121,13 +124,17 @@ function acceptRegex(w) {
     return e.test(w)
 }
 function test() {
-    let res = []
+    let resDFA = []
+    let resNFA = []
+    let resReg = []
     for (let n=1; n<final.value; n++) {
         let w = n.toString(2)  // to binary
-        if (acceptRegex(w) && acceptDFA(w) &&  acceptNFA(w)) res.push(n); 
+        if (acceptRegex(w)) resReg.push(n);
+        if(acceptDFA(w)) resDFA.push(n);
+        if(acceptNFA(w)) resNFA.push(n); 
     }
-    console.log("Result: [" + res + "]")
-    out.innerHTML = "Result: " + res
+    console.log("Result NFA: " + resNFA + '\n' + "Result DFA: " + resDFA + '\n' + "Result RegEx: " + resReg)
+    out.innerHTML = "Result NFA: " + resNFA + '\n' + "Result DFA: " + resDFA + '\n' + "Result RegEx: " + resReg
 }
     title.innerText = document.title;
     sample.innerText = deltaNFA + '\n' + acceptNFA + '\n' + deltaDFA + '\n' + acceptDFA + '\n' + acceptRegex+ '\n' +test;
