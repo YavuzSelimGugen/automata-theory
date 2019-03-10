@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>syntax highlighter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .strfound {
+            color: blue;
+        }
+
+        .arrfound {
+            color: red;
+        }
+
+        .arrfound .strfound {
+            color: red;
+        }
+
+        .strfound .arrfound {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <textarea id='input' rows="10" cols="50" onkeyup="func()"></textarea>
+        <pre id="out"></pre>
+        <p>Ref:
+            <a href="https://www.regular-expressions.info/refrepeat.html" target="ExternalDocument">
+                https://www.regular-expressions.info/refrepeat.html
+            </a>
+        </p>
+        <p>Ref:
+            <a href="https://eloquentjavascript.net/09_regexp.html" target="ExternalDocument">
+                eloquentjavascript C09 Regexp
+            </a>
+        </p>
+        <hr>
+        <pre id="sample"></pre>
+    </div>
+    <script>
+        input.value = "str = 'Some strings '\nstr1 = '[] asad []//*-?'\narr = [1,\"235\", {name: 'Yavuz'}]";
+        var strre = new RegExp('("|\').*?("|\')', 'g');
+        var arrre = /\[.*?\]/gm;
+        const str = "<span class=strfound>$&</span>";
+        const arr = "<span class=arrfound>$&</span>";
+        let match1, match2, temp;
+        function func() {
+            // constants are outside of func, they are:
+            // var strre = new RegExp('("|\').*?("|\')', 'g');
+            // var arrre = /\[.*?\]/gm;
+            // const str = "<span class=strfound>$&</span>";
+            // const arr = "<span class=arrfound>$&</span>";
+            // let match1, match2, temp;
+            
+            out.innerHTML = input.value.replace(arrre, arr);
+            temp = input.value.replace(arrre, arr);
+            out.innerHTML = temp.replace(strre, str);
+        }
+        func();
+        sample.innerText = func.toString();
+    </script>
+</body>
+
+</html>
