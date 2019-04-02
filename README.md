@@ -3,4 +3,6 @@
 <br>
 [CW3](https://yavuzselimgugen.github.io/automata-theory/CW3.html) : RegEx
 <br>
+[CW3](https://yavuzselimgugen.github.io/automata-theory/CW5/index.html)
+<br>
 [HW1](https://yavuzselimgugen.github.io/automata-theory/HW1.html) : Simple Syntax Highlighter for string and array
