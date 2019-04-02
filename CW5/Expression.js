@@ -25,7 +25,7 @@ function showError(elt) {
 class Constant {
    constructor(num) { this.num = num; }
    fValue() { return this.num; }
-   toTree(param) { return space.repeat(param)+this.num+'\n'; }
+   toTree(param) { return space.repeat(param) + this.num + '\n' }
    toPostfix() { return this.num+' '; }
    toString() { return this.num.toString(); }
 }
@@ -34,8 +34,7 @@ class Binary {
       this.left = left; this.oper = oper; this.right = right;
    }
    fValue() {
-      switch (this.oper) {
-      case POWER: return Math.pow(this.left.fValue(),this.left.fValue());    
+      switch (this.oper) { 
       case PLUS:  return this.left.fValue()+this.right.fValue();
       case MINUS: return this.left.fValue()-this.right.fValue();
       case STAR:  return this.left.fValue()*this.right.fValue();
@@ -49,7 +48,7 @@ class Binary {
    }
    toTree() {
        //return this.oper+'\n'+this.left.toTree()+this.right.toTree()
-      return space.repeat(++operCount) + this.oper+ '\n' 
+      return space.repeat(++operCount) + this.oper + '\n' 
         + this.left.toTree(operCount) + this.right.toTree(operCount--)      
    }
    toPostfix() {
