@@ -35,7 +35,7 @@ class Binary {
    }
    fValue() {
       switch (this.oper) {
-      case POWER: return Math.pow(this.left.fValue(),this.right.fValue());    
+      case POWER: return Math.pow(this.left.fValue(),this.left.fValue());    
       case PLUS:  return this.left.fValue()+this.right.fValue();
       case MINUS: return this.left.fValue()-this.right.fValue();
       case STAR:  return this.left.fValue()*this.right.fValue();
