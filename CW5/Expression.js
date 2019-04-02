@@ -1,6 +1,10 @@
 "use strict";
 var tok     //current Token
 var tokens  //Token.list()
+var space = ' '
+let operCount = -1;
+
+
 function match(k) {
     if (tok.kind == k) 
         tok = tokens.pop();
@@ -31,6 +35,7 @@ class Binary {
    }
    fValue() {
       switch (this.oper) {
+      case POWER: return Math.pow(this.left.fValue(),this.right.fValue());    
       case PLUS:  return this.left.fValue()+this.right.fValue();
       case MINUS: return this.left.fValue()-this.right.fValue();
       case STAR:  return this.left.fValue()*this.right.fValue();
@@ -43,8 +48,9 @@ class Binary {
       }
    }
    toTree() {
-      //return this.oper+'\n'+this.left.toTree()+this.right.toTree()
-      return space.repeat(++operCount)+this.oper+'\n'+this.left.toTree(operCount)+this.right.toTree(operCount--)
+       //return this.oper+'\n'+this.left.toTree()+this.right.toTree()
+      return space.repeat(++operCount) + this.oper+ '\n' 
+        + this.left.toTree(operCount) + this.right.toTree(operCount--)      
    }
    toPostfix() {
       return this.left.toPostfix()+this.right.toPostfix()+this.oper+' '
@@ -67,7 +73,7 @@ function expression() {
 }
 function term() {
     let e = factor();
-    while (tok.kind == STAR || tok.kind == SLASH) {
+    while (tok.kind == POWER || tok.kind == STAR || tok.kind == SLASH) {
         let op = tok.kind; match(op);
         e = new Binary(e, op, factor());
     }
