@@ -11,7 +11,21 @@ const
     VAR = "var",   IF = "if",     ELSE = "else", FOR = "for", 
     WHILE = "while", RETURN = "return",   READ = "read", 
     PRINT = "print", PRINTLN = "println", TO = "to", 
-    UNKNOWN = '???', EOF = 'eof';
+    UNKNOWN = '???', EOF = 'eof',
+    ABS = "abs", ACOS = "acos", 
+    ACOSH = "acosh", ASIN = "asin", 
+    ASINH = "asinh", ATAN = "atan", 
+    ATANH = "atanh", CEIL = "ceil", 
+    CBRT = "cbrt", EXPM1 = "expm1", 
+    CLZ32 = "clz32", COS = "cos", 
+    COSH = "cosh", EXPm = "exp", 
+    FLOOR = "floor", FROUND = "fround", 
+    LOG = "log", LOG1P = "log1p", 
+    LOG2 = "log2", LOG10 = "log10", 
+    ROUND = "round", SIGN = "sign", 
+    SIN = "sin", SINH = "sinh", 
+    SQRT = "sqrt", TAN = "tan", 
+    TANH = "tanh", TRUNC = "trunc";
     
 class Token {
   constructor(s, i) {
