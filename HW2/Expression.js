@@ -37,6 +37,7 @@ class Binary {
         this.left = left; this.oper = oper; this.right = right;
     }
     fValue() {
+        console.log(this.left)
         switch (this.oper) {
             case POWER: 
                 return Math.pow(this.left, this.right);
@@ -82,6 +83,8 @@ function term() {
     while (tok.kind == STAR || tok.kind == SLASH || tok.kind == MOD) {
         let op = tok.kind; match(op);
         e = new Binary(e, op, factor());
+        // console.log("things::")
+        // console.log(e)
     }
     return e;
 }
