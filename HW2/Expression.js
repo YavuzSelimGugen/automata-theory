@@ -3,7 +3,10 @@ var tok     //current Token
 var tokens  //Token.list()
 var space = ' '
 let operCount = -1;
+let result;
 
+var F = Object.getOwnPropertyNames(Math)
+var a = F.filter(k => Math[k].length == 1)
 
 function match(k) {
     if (tok.kind == k)
@@ -45,6 +48,8 @@ class Binary {
                 if (v == 0)
                     throw ("Division by zero");
                 return this.left.fValue() / v;
+            case MOD: return this.left.fValue() % this.right.fValue();
+            case IDENT: return 
             default: return NaN;
         }
     }
@@ -74,7 +79,7 @@ function expression() {
 }
 function term() {
     let e = factor();
-    while (tok.kind == STAR || tok.kind == SLASH) {
+    while (tok.kind == STAR || tok.kind == SLASH || tok.kind == MOD) {
         let op = tok.kind; match(op);
         e = new Binary(e, op, factor());
     }
@@ -91,6 +96,24 @@ function factor() {
             match(LEFT);
             let e = expression();
             match(RIGHT); return e;
+        case 'ident': 
+            // console.log("Girdi")
+            if(a.includes(tok.val)) {
+                // console.log('ife girdi')
+                let func = String(tok.val)
+                console.log(func)
+                match(IDENT)
+                match(LEFT)
+                let a = expression();
+                
+                // a = new Binary(a,IDENT, a);
+                console.log(a);
+                match(RIGHT)
+                result = Number(Math[func](a));
+                console.log(result)
+                // return Number(result)
+            }
+            // console.log("cikti")
         default: expected("Factor");
     }
     return null;
