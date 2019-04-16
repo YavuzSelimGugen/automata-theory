@@ -37,15 +37,20 @@
 </h2>
 <p>
 <textarea id=inpx rows=14>
-M(k)  { print k; } //Mark
-R(n)  { //Rule
-  if (n == 0) { return; }
-  R(n-1); M(n); R(n-1);
-}
-ruler(n)  { //main
-  n = 5; //read n; 
-  R(n); println;
-}
+M(k)  {
+    var row, col;
+    row = 1;
+    while (row <= k) { 
+        col = 1;
+        while(col <= row) {
+            print "o";
+            col = col +1;
+            }
+            println;
+            row = row+1; 
+        }
+    } //YavuzSelimGugen
+Main() { var n; read n; M(n); }
 </textarea>
 </p>
 <pre id=outx>

@@ -34,7 +34,7 @@ var class_works = [
     {
         "name": "Classwork7",
         "meta": "microJ Level 3",
-        "link": ""
+        "link": "CW7/index.html"
     }
     
 ]
