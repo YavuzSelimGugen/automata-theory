@@ -48,6 +48,11 @@ var home_works = [
         "name": "Homework2",
         "meta": "",
         "link": "HW2/database.html" 
+    }, 
+    {
+        "name": "Homework3",
+        "meta": "withValue() added to microJ1",
+        "link": "HW3/microJ1.html"
     }
 ]
 
