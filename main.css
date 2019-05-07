@@ -22,11 +22,11 @@ html *
 }
 a {
     color: #D7A400;
-    text-decoration: none;
+    text-decoration: underline;
   }
   a:visited {
     color: #FFC200;
-    text-decoration: none;
+    text-decoration: underline;
   }
   a:hover {
     color: #FFECB1;
